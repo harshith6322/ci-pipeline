@@ -1,34 +1,34 @@
-name: On Push Build an Image
+# name: On Push Build an Image
 
-on:
-  push:
-    branches: # Change 'Branch' to 'branches' (correct keyword and spelling)
-      - main
+# on:
+#   push:
+#     branches: # Change 'Branch' to 'branches' (correct keyword and spelling)
+#       - main
 
-jobs: # Change 'job' to 'jobs' (correct keyword for multiple jobs)
-  Build-image-on-push:
-    runs-on: ubuntu-latest # Change 'runon' to 'runs-on' (correct property name)
+# jobs: # Change 'job' to 'jobs' (correct keyword for multiple jobs)
+#   Build-image-on-push:
+#     runs-on: ubuntu-latest # Change 'runon' to 'runs-on' (correct property name)
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-      - name: Login into docker
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+#       - name: Login into docker
+#         uses: docker/login-action@v2
+#         with:
+#           username: ${{ secrets.DOCKER_USERNAME }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
-        run: |
-          docker build -t harshithreddy6322/nodecpu:latest .
-      - name: Push to docker
-        run: |
-          docker push harshithreddy6322/nodecpu:latest
-      - name: Verify image
-        run: |
-          docker pull 100xdevs/web-app:latest
+#       - name: Build Docker image
+#         run: |
+#           docker build -t harshithreddy6322/nodecpu:latest .
+#       - name: Push to docker
+#         run: |
+#           docker push harshithreddy6322/nodecpu:latest
+#       - name: Verify image
+#         run: |
+#           docker pull harshithreddy6322/nodecpu:latest
 
-      # Additional steps for building and pushing your image can go here
+#       # Additional steps for building and pushing your image can go here
 
-# this build id succesfull
+# # this build id succesfull

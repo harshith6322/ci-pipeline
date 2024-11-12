@@ -19,10 +19,27 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t harshithreddy6322/nodecpu:latest .
-      - name: Push to docker
+          docker build -t my-app-image .
+          - name: Run Docker container
+          run: |
+            docker run -d -p 3000:3000 --name my-app-container my-app-image
+
+        # Check if the application is running on port 3000
+      - name: Check application status
         run: |
-          docker push harshithreddy6322/nodecpu:latest
-      - name: Verify image
+          for i in {1..10}; do
+            if curl -s http://localhost:3000 > /dev/null; then
+              echo "Application is running!";
+              exit 0;
+            fi
+            echo "Waiting for application to start...";
+            sleep 5;
+          done
+          echo "Application failed to start";
+          exit 1
+
+        # Clean up the Docker container
+      - name: Stop and remove Docker container
         run: |
-          docker pull 100xdevs/web-app:latest
+          docker stop my-app-container
+          docker rm my-app-container
