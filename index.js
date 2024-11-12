@@ -37,12 +37,12 @@ if (cluster.isPrimary) {
       id: process.pid,
     });
   });
-  app.get("/loop", () => {
-    while (true) {
-      count++;
-    }
-  });
-  DONE;
+  // app.get("/loop", () => {
+  //   while (true) {
+  //     count++;
+  //   }
+  // });
+  // DONE;
 
   app.listen(3000, () => {
     console.log("http://localhost:3000/");
