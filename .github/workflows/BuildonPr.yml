@@ -1,45 +1,45 @@
-name: build on pr
+# name: build on pr
 
-on:
-  pull_request:
-    branches:
-      - main
+# on:
+#   pull_request:
+#     branches:
+#       - main
 
-jobs:
-  build_on_pr:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Login into docker
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+# jobs:
+#   build_on_pr:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#       - name: Login into docker
+#         uses: docker/login-action@v2
+#         with:
+#           username: ${{ secrets.DOCKER_USERNAME }}
+#           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
-        run: |
-          docker build -t my-app-image .
-          - name: Run Docker container
-          run: |
-            docker run -d -p 3000:3000 --name my-app-container my-app-image
+#       - name: Build Docker image
+#         run: |
+#           docker build -t my-app-image .
+#           - name: Run Docker container
+#           run: |
+#             docker run -d -p 3000:3000 --name my-app-container my-app-image
 
-        # Check if the application is running on port 3000
-      - name: Check application status
-        run: |
-          for i in {1..10}; do
-            if curl -s http://localhost:3000 > /dev/null; then
-              echo "Application is running!";
-              exit 0;
-            fi
-            echo "Waiting for application to start...";
-            sleep 5;
-          done
-          echo "Application failed to start";
-          exit 1
+#         # Check if the application is running on port 3000
+#       - name: Check application status
+#         run: |
+#           for i in {1..10}; do
+#             if curl -s http://localhost:3000 > /dev/null; then
+#               echo "Application is running!";
+#               exit 0;
+#             fi
+#             echo "Waiting for application to start...";
+#             sleep 5;
+#           done
+#           echo "Application failed to start";
+#           exit 1
 
-        # Clean up the Docker container
-      - name: Stop and remove Docker container
-        run: |
-          docker stop my-app-container
-          docker rm my-app-container
+#         # Clean up the Docker container
+#       - name: Stop and remove Docker container
+#         run: |
+#           docker stop my-app-container
+#           docker rm my-app-container
